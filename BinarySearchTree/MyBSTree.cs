@@ -81,6 +81,7 @@ namespace BinarySearchTree
         }
 
         #region TraversePreOrder
+        //Root-Left-Right
         public void TraversePreOrder()
         {
             TraversePreOrder(Root);
@@ -98,6 +99,7 @@ namespace BinarySearchTree
         #endregion
 
         #region TraverseInOrder
+        //Left-Root-Right
         public void TraverseInOrder()
         {
             TraverseInOrder(Root);
@@ -115,6 +117,7 @@ namespace BinarySearchTree
         #endregion
 
         #region TraversePostOrder
+        //Left-Right-Root
         public void TraversePostOrder()
         {
             TraversePostOrder(Root);
