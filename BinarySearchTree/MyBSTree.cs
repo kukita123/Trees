@@ -168,16 +168,17 @@ namespace BinarySearchTree
             if (root == null)
                 return -1;
 
-            if (root.leftChild == null && root.rightChild == null)
+            if (root.leftChild == null && root.rightChild == null) //base condition -> bottom of the recursion ->leaf
                 return 0;
 
-            return 1 + Math.Max(
+            return 1 + Math.Max(   //the biggest between the height of the left subtree or the right subtree + 1 (for the current node)
                 Height(root.leftChild), 
                 Height(root.rightChild));
         }
         #endregion
 
-        #region DepthToNode-Get Nodes At Distance
+        #region DepthToNode -> Get Nodes At Distance
+
         public List<int> GetNodesAtDistance(int distance)
         {
             var list = new List<int>();
@@ -185,7 +186,7 @@ namespace BinarySearchTree
             return list;
         }
 
-        private void GetNodesAtDistance(Node root, int distance,List<int>list)
+        private void GetNodesAtDistance(Node root, int distance, List<int>list)
         {
             if (root == null)
                 return;
@@ -215,12 +216,12 @@ namespace BinarySearchTree
                 }
             }
         }
-
-
+        
         #endregion
 
 
         #region SizeOfTheTree
+
         public int Size()
         {
             return Size(Root);
@@ -263,7 +264,26 @@ namespace BinarySearchTree
 
         #endregion
 
+        #region IsBalanced
 
+        public bool IsBalanced()
+        {
+            return IsBalanced(Root);
+        }
+
+        private bool IsBalanced(Node root)
+        {
+            if (root == null)
+                return true;
+
+            var coef = Height(root.leftChild) - Height(root.rightChild);
+
+            return Math.Abs(coef) <= 1 &&
+                    IsBalanced(root.leftChild) &&
+                    IsBalanced(root.rightChild);
+        }
+
+        #endregion
 
 
 

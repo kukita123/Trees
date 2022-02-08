@@ -19,34 +19,38 @@ namespace BinarySearchTree
             bsTree.Insert(8);
             bsTree.Insert(10);
 
-            Console.WriteLine(bsTree.Find(1));
-            Console.WriteLine(bsTree.Find(111));
+            //Console.WriteLine(bsTree.Find(1));
+            //Console.WriteLine(bsTree.Find(111));
 
-            Console.WriteLine("Pre-Order Traversal:");
-            bsTree.TraversePreOrder();
+            //Console.WriteLine("Pre-Order Traversal:");
+            //bsTree.TraversePreOrder();
 
-            Console.WriteLine("In-Order Traversal:");
-            bsTree.TraverseInOrder();
+            //Console.WriteLine("In-Order Traversal:");
+            //bsTree.TraverseInOrder();
 
-            Console.WriteLine("Post-Order Traversal:");
-            bsTree.TraversePostOrder();
+            //Console.WriteLine("Post-Order Traversal:");
+            //bsTree.TraversePostOrder();
 
-            MyBSTree bsTree2 = new MyBSTree();
-            bsTree2.Insert(7);
-            bsTree2.Insert(4);
-            bsTree2.Insert(9);
-            bsTree2.Insert(1);
-            bsTree2.Insert(6);
-            bsTree2.Insert(8);
-            bsTree2.Insert(10);
-            bsTree2.Insert(12);
+            //MyBSTree bsTree2 = new MyBSTree();
+            //bsTree2.Insert(7);
+            //bsTree2.Insert(4);
+            //bsTree2.Insert(9);
+            //bsTree2.Insert(1);
+            //bsTree2.Insert(6);
+            //bsTree2.Insert(8);
+            //bsTree2.Insert(10);
+            //bsTree2.Insert(12);
 
-            Console.WriteLine(bsTree.Equals(bsTree2));
+            //Console.WriteLine(bsTree.Equals(bsTree2));
 
             Console.WriteLine(bsTree.Height());
 
-            bsTree2.TraverseLevelOrder();
-            
+            List<int> valuesAtDistance = new List<int>();
+            valuesAtDistance = bsTree.GetNodesAtDistance(2);
+            Console.WriteLine(string.Join(" ", valuesAtDistance));
+
+            //bsTree2.TraverseLevelOrder();
+
             //Console.WriteLine(bsTree.IsBinarySearchTree());
 
             Console.ReadKey();
