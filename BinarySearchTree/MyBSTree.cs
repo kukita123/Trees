@@ -28,57 +28,63 @@ namespace BinarySearchTree
 
         public Node Root {get; set; }
 
+        #region Insert
         public void Insert(int value)
         {
             var node = new Node(value);
 
             //two cases: if the tree is empty or is not
-            if (Root == null)
+            
+            if (Root == null)  //empty tree
             {
                 Root = node;
                 return;
             }
 
+            //tree is NOT empty:
             var current = Root;
             while (true)
             {
                 if (value < current.value)    //we should go to the left subtree
                 {
-                    if (current.leftChild == null)
+                    if (current.leftChild == null)  //leaf, and we are inserting our new node here
                     {
                         current.leftChild = node;
                         break;
                     }
-                    current = current.leftChild;
+                    current = current.leftChild; //we go down
                 }
-                else
+                else  //we are going to the right subtree
                 {
-                    if (current.rightChild == null)
+                    if (current.rightChild == null) //leaf, and we are inserting our new node here
                     {
                         current.rightChild = node;
                         break;
                     }
-                    current = current.rightChild;
+                    current = current.rightChild; //going down
                 }
             }
         }
+        #endregion
 
+        #region Find
         public bool Find(int value)
         {
             var current = Root;
 
             while(current != null)
             {
-                if (value < current.value)
+                if (value < current.value) //we must go down ti the left subtree
                     current = current.leftChild;
-                else if (value > current.value)
+                else if (value > current.value)  //we must go down ti the right subtree
                     current = current.rightChild;
                 else
-                    return true;                
+                    return true;     // when value == current.value          
             }
 
-            return false;
+            return false; //node wasn't found
         }
+        #endregion
 
         #region TraversePreOrder
         //Root-Left-Right
@@ -158,6 +164,9 @@ namespace BinarySearchTree
         #endregion
 
         #region Height 
+        //this is the the bigest number of edges, going from the leaf to the root of the tree
+        //we can recursively calculate the height of the left and the right subtrees, found the biggest and add 1 for the current node
+
         public int Height()
         {
             return Height(Root);
@@ -165,10 +174,10 @@ namespace BinarySearchTree
 
         private int Height(Node root)
         {
-            if (root == null)
+            if (root == null)  //if the tree is empty
                 return -1;
 
-            if (root.leftChild == null && root.rightChild == null) //base condition -> bottom of the recursion ->leaf
+            if (root.leftChild == null && root.rightChild == null) //base condition -> bottom of the recursion -> leaf
                 return 0;
 
             return 1 + Math.Max(   //the biggest between the height of the left subtree or the right subtree + 1 (for the current node)
@@ -178,7 +187,6 @@ namespace BinarySearchTree
         #endregion
 
         #region DepthToNode -> Get Nodes At Distance
-
         public List<int> GetNodesAtDistance(int distance)
         {
             var list = new List<int>();
@@ -201,8 +209,8 @@ namespace BinarySearchTree
             GetNodesAtDistance(root.rightChild, distance - 1, list);
         }
 
-        #endregion
-        
+        #endregion        
+
         #region LevelOrderTraversal       
 
         public void TraverseLevelOrder()
@@ -216,9 +224,7 @@ namespace BinarySearchTree
                 }
             }
         }
-        
         #endregion
-
 
         #region SizeOfTheTree
 
@@ -232,7 +238,7 @@ namespace BinarySearchTree
             if (root == null)
                 return 0;
 
-            if (IsLeaf(root))
+            if (IsLeaf(root))   // base condition - bottom of the recursion
                 return 1;
 
             return 1 + Size(root.leftChild) + Size(root.rightChild);
@@ -286,9 +292,8 @@ namespace BinarySearchTree
         #endregion
 
 
-
         #region ValidatingBST
-        // we should check it a bynatry tree is a bynary Serac tree
+        // we should check it a bynatry tree is a bynary Search tree
         // 1st  way - using recursion - for every node we visit it's subtrees -> if all the values are in the correct intervals, we are going to the next subtree
         // 1st way is slow, because we are visiting every node multiply times
 
