@@ -177,12 +177,49 @@ namespace BinarySearchTree
             if (root == null)  //if the tree is empty
                 return -1;
 
-            if (root.leftChild == null && root.rightChild == null) //base condition -> bottom of the recursion -> leaf
+            if (IsLeaf(root)) //base condition -> bottom of the recursion -> leaf
                 return 0;
 
             return 1 + Math.Max(   //the biggest between the height of the left subtree or the right subtree + 1 (for the current node)
                 Height(root.leftChild), 
                 Height(root.rightChild));
+        }
+        #endregion
+
+      
+        
+        #region Min 
+        //for Binary Tree, not for Binery Search Tree
+        public int TreeMin()
+        {
+            return TreeMin(Root);
+        }
+
+        private int TreeMin(Node root)
+        {
+            if (IsLeaf(root))
+                return 0;
+
+            //min value between root, left, right of the subtree (recursively):
+            var left = TreeMin(root.leftChild);
+            var right = TreeMin(root.rightChild);
+            return Math.Min(root.value, Math.Min(left, right));
+        }
+
+        public int BSTreeMin() //searching the left most leaf
+        {
+            if (Root == null)
+                throw new Exception("Missing tree");
+
+            var current = Root;
+            var leftMost = current;
+            while(current != null)
+            {
+                leftMost = current;
+                current = current.leftChild;
+            }
+
+            return leftMost.value;
         }
         #endregion
 
