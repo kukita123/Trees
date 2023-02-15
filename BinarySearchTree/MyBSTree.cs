@@ -25,7 +25,6 @@ namespace BinarySearchTree
                 return "Node = " + value;
             }
         }
-
         public Node Root {get; set; }
 
         #region Insert
@@ -148,7 +147,6 @@ namespace BinarySearchTree
 
             return Equals(Root, other.Root);
         }
-
         private bool Equals(Node first, Node second)
         {
             if (first == null && second == null)
@@ -164,8 +162,11 @@ namespace BinarySearchTree
         #endregion
 
         #region Height 
-        //this is the the bigest number of edges, going from the leaf to the root of the tree
-        //we can recursively calculate the height of the left and the right subtrees, found the biggest and add 1 for the current node
+        //this is the the bigest number of edges,
+        //going from the leaf to the root of the tree
+        //we can recursively calculate the height of
+        //the left and the right subtrees, found the biggest
+        //and add 1 for the current node
 
         public int Height()
         {
@@ -196,10 +197,10 @@ namespace BinarySearchTree
 
         private void GetNodesAtDistance(Node root, int distance, List<int>list)
         {
-            if (root == null)
+            if (root == null) //base case -> leaf
                 return;
 
-            if(distance == 0)
+            if(distance == 0) //functionality -> calculated distance
             {
                 list.Add(root.value);
                 return;
@@ -291,10 +292,10 @@ namespace BinarySearchTree
 
         #endregion
 
-
         #region ValidatingBST
         // we should check it a bynatry tree is a bynary Search tree
-        // 1st  way - using recursion - for every node we visit it's subtrees -> if all the values are in the correct intervals, we are going to the next subtree
+        // 1st  way - using recursion - for every node we visit it's subtrees ->
+        // if all the values are in the correct intervals, we are going to the next subtree
         // 1st way is slow, because we are visiting every node multiply times
 
         //2nd way - to traverse the tree and for every node we checks if the value of this node is in the correct interval
