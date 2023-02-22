@@ -49,6 +49,9 @@ namespace BinarySearchTree
             valuesAtDistance = bsTree.GetNodesAtDistance(2);
             Console.WriteLine(string.Join(" ", valuesAtDistance));
 
+            Console.WriteLine("Level order traversal using queue: ");
+            Console.WriteLine(string.Join(", ", bsTree.LevelOrderTraversalUsingQueue()));
+
             Console.ReadKey();
         }
     }

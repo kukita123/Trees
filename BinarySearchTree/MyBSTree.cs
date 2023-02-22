@@ -172,7 +172,6 @@ namespace BinarySearchTree
         {
             return Height(Root);
         }
-
         private int Height(Node root)
         {
             if (root == null)  //if the tree is empty
@@ -185,21 +184,18 @@ namespace BinarySearchTree
                 Height(root.leftChild), 
                 Height(root.rightChild));
         }
-        #endregion
-
-      
+        #endregion      
         
-        #region Min 
+        #region MinMax 
         //for Binary Tree, not for Binery Search Tree
         public int TreeMin()
         {
             return TreeMin(Root);
         }
-
         private int TreeMin(Node root)
         {
             if (IsLeaf(root))
-                return 0;
+                return root.value;
 
             //min value between root, left, right of the subtree (recursively):
             var left = TreeMin(root.leftChild);
@@ -207,6 +203,24 @@ namespace BinarySearchTree
             return Math.Min(root.value, Math.Min(left, right));
         }
 
+        public int TreeMax()
+        {
+            return TreeMax(Root);
+        }
+        private int TreeMax(Node root)
+        {
+            if (IsLeaf(root))
+                return root.value;
+
+            //min value between root, left, right of the subtree (recursively):
+            var left = TreeMax(root.leftChild);
+            var right = TreeMax(root.rightChild);
+            return Math.Max(root.value, Math.Max(left, right));
+        }
+
+        //for Binary Search Tree ->
+        //min is in the left most leaf,
+        //max is in the right most leaf
         public int BSTreeMin() //searching the left most leaf
         {
             if (Root == null)
@@ -214,6 +228,7 @@ namespace BinarySearchTree
 
             var current = Root;
             var leftMost = current;
+
             while(current != null)
             {
                 leftMost = current;
@@ -222,6 +237,23 @@ namespace BinarySearchTree
 
             return leftMost.value;
         }
+        public int BSTreeMax() //searching the left most leaf
+        {
+            if (Root == null)
+                throw new Exception("Missing tree");
+
+            var current = Root;
+            var rightMost = current;
+
+            while (current != null)
+            {
+                rightMost = current;
+                current = current.rightChild;
+            }
+
+            return rightMost.value;
+        }
+
         #endregion
 
         #region DepthToNode -> Get Nodes At Distance
@@ -231,7 +263,6 @@ namespace BinarySearchTree
             GetNodesAtDistance(Root, distance, list);
             return list;
         }
-
         private void GetNodesAtDistance(Node root, int distance, List<int>list)
         {
             if (root == null) //base case -> leaf
@@ -246,11 +277,9 @@ namespace BinarySearchTree
             GetNodesAtDistance(root.leftChild, distance - 1,list);
             GetNodesAtDistance(root.rightChild, distance - 1, list);
         }
-
         #endregion        
 
-        #region LevelOrderTraversal       
-
+        #region LevelOrderTraversal 
         public void TraverseLevelOrder()
         {
             for (int i = 0; i < Height(); i++)
@@ -264,13 +293,35 @@ namespace BinarySearchTree
         }
         #endregion
 
-        #region SizeOfTheTree
+        #region Level Order Traversal Using Queue
+        public List<int> LevelOrderTraversalUsingQueue()
+        {
+            List<int> visited = new List<int>();
+            Queue<Node> queue = new Queue<Node>();
 
+            queue.Enqueue(Root);
+
+            while (queue.Count != 0)
+            {
+                var current = queue.Dequeue();
+                visited.Add(current.value);
+
+                if (current.leftChild != null)
+                    queue.Enqueue(current.leftChild);
+
+                if (current.rightChild != null)
+                    queue.Enqueue(current.rightChild);
+            }
+
+            return visited;
+        }
+        #endregion
+
+        #region SizeOfTheTree
         public int Size()
         {
             return Size(Root);
         }
-
         private int Size(Node root)
         {
             if (root == null)
@@ -280,21 +331,19 @@ namespace BinarySearchTree
                 return 1;
 
             return 1 + Size(root.leftChild) + Size(root.rightChild);
-        }
+        }       
 
+        #endregion
         private bool IsLeaf(Node node)
         {
             return node.leftChild == null && node.rightChild == null;
         }
-
-        #endregion
 
         #region CountOfTheLeaves
         public int CountLeaves()
         {
             return CountLeaves(Root);
         }
-
         private int CountLeaves(Node root)
         {
             if (root == null)
@@ -309,12 +358,10 @@ namespace BinarySearchTree
         #endregion
 
         #region IsBalanced
-
         public bool IsBalanced()
         {
             return IsBalanced(Root);
         }
-
         private bool IsBalanced(Node root)
         {
             if (root == null)
@@ -354,7 +401,9 @@ namespace BinarySearchTree
                 IsBinarySearchTree(Root.leftChild, min, Root.value - 1)
                 && IsBinarySearchTree(Root.rightChild, Root.value + 1, max);
         }
-        
+
         #endregion
+
+        
     }
 }
